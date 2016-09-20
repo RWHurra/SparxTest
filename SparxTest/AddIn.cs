@@ -20,7 +20,7 @@ namespace SparxTest
             switch (menuName)
             {
                 case "":
-                    return "My Add-In!";
+                    return "Count classes";
             }
             return "";
         }
@@ -46,7 +46,7 @@ namespace SparxTest
         {
             if (IsProjectOpen(repository))
             {
-                if (itemName == "My Add-In!")
+                if (itemName == "Count classes")
                     isEnabled = true;
             }
             else
@@ -57,30 +57,30 @@ namespace SparxTest
 
         // Called when user makes a selection in the menu.
         // This is your main exit point to the rest of your Add-in
-        //public void EA_MenuClick(Repository repository, string location, string menuName, string itemName)
-        //{
-        //    switch (itemName)
-        //    {
-        //        case "My Add-In!":
-        //            var count = 0;
-        //            foreach (Package model in repository.Models)
-        //                foreach (Package package in model.Packages)
-        //                    count += CountClasses(package);
-        //            MessageBox.Show("this project contains "
-        //                + count + " " + (count == 1 ? "class" : "classes"));
-        //            break;
-        //    }
-        //}
+        public void EA_MenuClick(Repository repository, string location, string menuName, string itemName)
+        {
+            switch (itemName)
+            {
+                case "Count classes":
+                    var count = 0;
+                    foreach (Package model in repository.Models)
+                        foreach (Package package in model.Packages)
+                            count += CountClasses(package);
+                    MessageBox.Show("This project contains "
+                        + count + " " + (count == 1 ? "class" : "classes"));
+                    break;
+            }
+        }
 
-        //private static int CountClasses(Package package)
-        //{
-        //    var count = 0;
-        //    foreach (Element e in package.Elements)
-        //        if (e.Type == "Class")
-        //            count++;
-        //    foreach (Package p in package.Packages)
-        //        count += CountClasses(p);
-        //    return count;
-        //}
+        private static int CountClasses(Package package)
+        {
+            var count = 0;
+            foreach (Element e in package.Elements)
+                if (e.Type == "Class")
+                    count++;
+            foreach (Package p in package.Packages)
+                count += CountClasses(p);
+            return count;
+        }
     }
 }
