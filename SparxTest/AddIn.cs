@@ -25,6 +25,8 @@ namespace SparxTest
             return "";
         }
 
+        // Sets the state of the menu depending if there is
+        // an active project or not
         static bool IsProjectOpen(Repository repository)
         {
             try
@@ -37,6 +39,9 @@ namespace SparxTest
             }
         }
 
+
+        // Called once Menu has been opened to see what menu
+        // items are active.
         public void EA_GetMenuState(Repository repository, string location, string menuName, string itemName, ref bool isEnabled, ref bool isChecked)
         {
             if (IsProjectOpen(repository))
@@ -45,9 +50,13 @@ namespace SparxTest
                     isEnabled = true;
             }
             else
+                // If no open project, disable all menu options
                 isEnabled = false;
         }
 
+
+        // Called when user makes a selection in the menu.
+        // This is your main exit point to the rest of your Add-in
         public void EA_MenuClick(Repository repository, string location, string menuName, string itemName)
         {
             switch (itemName)
