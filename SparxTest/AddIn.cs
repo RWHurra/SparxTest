@@ -1,5 +1,6 @@
 ﻿using EA;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace SparxTest
 {
